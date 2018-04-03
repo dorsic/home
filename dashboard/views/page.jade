@@ -1,0 +1,15 @@
+html
+   head
+      title= "Home Dasboard"
+      script(src='/jquery-2.1.0.min.js')
+      script(src='/monitor.js')
+      script(src='/socket.io/socket.io.js')
+      body
+         h1
+         | Temperatures
+            div
+               
+         #content(style='width: 500px; height: 100px; margin: 0 0 20px 0; border: solid 1px #999; overflow-y: scroll;')
+         .controls
+            input.field(style='width:350px;')
+            input.send(id='send', type='button', value='send')

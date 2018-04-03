@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Home Dashboard</title>
+        <link rel="stylesheet" href="./jquery/jquery.mobile-1.4.5.min.css" />
+	<link rel="stylesheet" href="./dashboard.css" />
+        <script src="./jquery/jquery-1.11.2.min.js"></script>
+        <script src="./jquery/jquery.mobile-1.4.5.min.js"></script>
+	<script src='/socket.io/socket.io.js')></script>
+</head>
+<body>
+
+<div data-role="collapsibleset" data-theme="a" data-content-theme="a">
+    <div id="lights" data-role="collapsible" >
+        <h3 id="LCaption">Svetlá</h3>
+
+            <div class="ui-field-contain">
+                <label for="Lherna">herňa</label>
+                <select name="herna" id="Lherna" data-role="flipswitch" >
+                    <option value="OFF" selected="">Off</option>
+                    <option value="ON">On</option>
+                </select>
+                <label name="LhernaTime" class="time"> time </label>
+            </div>
+            <div class="ui-field-contain">
+                <label for="Lhernaz">herňa zásuvka</label>
+                <select name="hernaz" id="Lhernaz" data-role="flipswitch" >
+                    <option value="OFF" selected="">Off</option>
+                    <option value="ON">On</option>
+                </select>
+                <label name="LhernazTime" class="time"> time </label>
+            </div>
+            <div class="ui-field-contain">
+                <label for="Lspalnickaokno">spálnička okno</label>
+                <select name="spalnickaokno" id="Lspalnickaokno" data-role="flipswitch" >
+                    <option value="OFF" selected="">Off</option>
+                    <option value="ON">On</option>
+                </select>
+                <label name="LspalnickaoknoTime" class="time"> time </label>
+            </div>
+            <div class="ui-field-contain">
+                <label for="Lspalnicka">spálnička</label>
+                <select name="spalnicka" id="Lspalnicka" data-role="flipswitch" >
+                    <option value="OFF" selected="">Off</option>
+                    <option value="ON">On</option>
+                </select>
+                <label name="LspalnickaTime" class="time"> time </label>
+            </div>
+            <div class="ui-field-contain">
+                <label for="Lzachod">záchod</label>
+                <select name="zachod" id="Lzachod" data-role="flipswitch" >
+                    <option value="OFF" selected="">Off</option>
+                    <option value="ON">On</option>
+                </select>
+                <label name="LzachodTime" class="time"> time </label>
+            </div>
+            <div class="ui-field-contain">
+                <label for="Lkuchyna">kuchyňa</label>
+                <select name="kuchyna" id="Lkuchyna" data-role="flipswitch" >
+                    <option value="OFF" selected="">Off</option>
+                    <option value="ON">On</option>
+                </select>
+                <label name="LkuchynaTime" class="time"> time </label>
+            </div>
+            <div class="ui-field-contain">
+                <label for="Lvchod">vchod</label>
+                <select name="vchod" id="Lvchod" data-role="flipswitch" >
+                    <option value="OFF" selected="">Off</option>
+                    <option value="ON">On</option>
+                </select>
+                <label name="LvchodTime" class="time"> time </label>
+            </div>
+            <div class="ui-field-contain">
+                <label for="Lobyvacka">obývačka</label>
+                <select name="obyvacka" id="Lobyvacka" data-role="flipswitch" >
+                    <option value="OFF" selected="">Off</option>
+                    <option value="ON">On</option>
+                </select>
+                <label name="LobyvackaTime" class="time"> time </label>
+            </div>
+            <div class="ui-field-contain">
+                <label for="Lspalna">spálňa</label>
+                <select name="spalna" id="Lspalna" data-role="flipswitch" >
+                    <option value="OFF" selected="">Off</option>
+                    <option value="ON">On</option>
+                </select>
+                <label name="LspalnaTime" class="time"> time </label>
+            </div>
+            <div class="ui-field-contain">
+                <label for="Lkupelna">kúpeľňa</label>
+                <select name="kupelna" id="Lkupelna" data-role="flipswitch" >
+                    <option value="OFF" selected="">Off</option>
+                    <option value="ON">On</option>
+                </select>
+                <label name="LkupelnaTime" class="time"> time </label>
+            </div>
+            <div class="ui-field-contain">
+                <label for="Lzrkadlo">zrkadlo</label>
+                <select name="zrkadlo" id="Lzrkadlo" data-role="flipswitch" >
+                    <option value="OFF" selected="">Off</option>
+                    <option value="ON">On</option>
+                </select>
+                <label name="LzrkadloTime" class="time"> time </label>
+            </div>
+            <div class="ui-field-contain">
+                <label for="Lkumbal">kumbál</label>
+                <select name="kumbal" id="Lkumbal" data-role="flipswitch" >
+                    <option value="OFF" selected="">Off</option>
+                    <option value="ON">On</option>
+                </select>
+                <label name="LkumbalTime" class="time"> time </label>
+            </div>
+            <div class="ui-field-contain">
+                <label for="Lpolicka">polička</label>
+                <select name="policka" id="Lpolicka" data-role="flipswitch" >
+                    <option value="OFF" selected="">Off</option>
+                    <option value="ON">On</option>
+                </select>
+                <label name="LpolickaTime" class="time"> time </label>
+            </div>
+
+    </div>
+    <div id="temperatures" data-role="collapsible" data-collapsed="false">
+        <h3 id="TCaption">Teploty</h3>
+	    <table>
+				<tr><td>vonku</td><td name='balkon' class='temperature' style='font-weight: bold'></td><td name='TbalkonTime' class="time"></td></tr>
+				<tr><td>obyvacka7</td><td name='obyvacka7' class='temperature' style='font-weight: bold'></td><td name='Tobyvacka7Time' class="time"></td></tr>
+				<tr><td>vchod</td><td name='vchod' class='temperature' style='font-weight: bold'></td><td name='TvchodTime' class="time"></td></tr>
+				<tr><td>kuchyňa</td><td name='kuchyna' class='temperature'></td><td name='TkuchynaTime' class="time"></td></tr>
+				<tr><td>obývačka</td><td name='predspalnou' class='temperature'></td><td name='TpredspalnouTime' class="time"></td></tr>
+				<tr><td>spálnička</td><td name='spalnicka' class='temperature'></td><td name='TspalnickaTime' class="time"></td></tr>
+				<tr><td>radiátor kupeľna IN</td><td name='rkupelnain' class='temperature'></td><td name='TrkupelnainTime' class="time"></td></tr>
+				<tr><td>radiátor kupeľna OUT</td><td name='rkupelnaout' class='temperature'></td><td name='TrkupelnaoutTime' class="time"></td></tr>
+				<tr><td>radiátor spálňa IN</td><td name='rspalnain' class='temperature'></td><td name='TrspalnainTime' class="time"></td></tr>
+				<tr><td>radiátor spálňa OUT</td><td name='rspalnaout' class='temperature'></td><td name='TrspalnaoutTime' class="time"></td></tr>
+	    </table>
+    </div>
+    <div id="heating" data-role="collapsible">
+        <h3 id="HCaption">Kúrenie</h3>
+	    <div class="ui-field-contain">
+                <label for="Hheating">kúrenie</label>
+                <select name="heating" id="Hheating" data-role="flipswitch" >
+                    <option value="OFF" selected="">Off</option>
+                    <option value="ON">On</option>
+                </select>
+                <label name="HheatingTime" class="time"> time </label>
+            </div>
+
+        <h3>Požadované teploty</h3>
+	    <table>
+		<tr><td>vonku</td><td name='balkon' class='temperature' style='font-weight: bold'></td><td name='RbalkonTime' class="time"></td></tr>
+		<tr><td>obyvacka7</td><td name='obyvacka7' class='temperature' style='font-weight: bold'></td><td name='Robyvacka7Time' class="time"></td></tr>
+		<tr><td>vchod</td><td name='vchod' class='temperature' style='font-weight: bold'></td><td name='RvchodTime' class="time"></td></tr>
+		<tr><td>kuchyňa</td><td name='kuchyna' class='temperature'></td><td name='RkuchynaTime' class="time"></td></tr>
+		<tr><td>obývačka</td><td name='predspalnou' class='temperature'></td><td name='RpredspalnouTime' class="time"></td></tr>
+		<tr><td>spálnička</td><td name='spalnicka' class='temperature'></td><td name='R	spalnickaTime' class="time"></td></tr>
+	    </table>
+
+        <h3>Termostaty</h3>
+	    <div class="ui-field-contain">
+                <label for="Mbyt7">byt 7</label>
+                <select name="obyvacka7" id="Mbyt7" data-role="flipswitch" >
+                    <option value="OFF" selected="">Off</option>
+                    <option value="ON">On</option>
+                </select>
+                <label name="Mobyvacka7Time" class="time"> time </label>
+            </div>
+	    <div class="ui-field-contain">
+                <label for="Mbyt8">byt 8</label>
+                <select name="predspalnou" id="Mbyt8" data-role="flipswitch" >
+                    <option value="OFF" selected="">Off</option>
+                    <option value="ON">On</option>
+                </select>
+                <label name="MpredspalnouTime" class="time"> time </label>
+            </div>
+    </div>
+    <div id="switches" data-role="collapsible">
+            <h3>Vypínače</h3>
+	    <table>
+		<tr><td>vstup kraj bez LED</td><td name='vstupKrajNoLed' class='switchState'></td><td name='SvstupKrajNoLedTime' class="time"></td></tr>
+		<tr><td>vstup stredný</td><td name='vstupStred' class='switchState'></td><td name='SvstupStredTime' class="time"></td></tr>
+		<tr><td>vstup LED</td><td name='vstupLed' class='switchState'></td><td name='SvstupLedTime' class="time"></td></tr>
+		<tr><td>kuchyňa</td><td name='kuchyna' class='switchState'></td><td name='SkuchynaTime' class="time"></td></tr>
+		<tr><td>pred spálňou</td><td name='predSpalnou' class='switchState'></td><td name='SpredSpalnouTime' class="time"></td></tr>
+		<tr><td>spálňa</td><td name='spalna' class='switchState'></td><td name='SspalnaTime' class="time"></td></tr>
+		<tr><td>herna LED</td><td name='hernaLed' class='switchState'></td><td name='ShernaLedTime' class="time"></td></tr>
+		<tr><td>herna bez LED</td><td name='hernaNoLed' class='switchState'></td><td name='ShernaNoLedTime' class="time"></td></tr>
+		<tr><td>kumbál</td><td name='kumbal' class='switchState'></td><td name='SkumbalTime' class="time"></td></tr>
+		<tr><td>kúpeľňa stredný</td><td name='kupelnaStred' class='switchState'></td><td name='SkupelnaStredTime' class="time"></td></tr>
+		<tr><td>kúpeľňa</td><td name='kupelna' class='switchState'></td><td name='SkupelnaTime' class="time"></td></tr>
+		<tr><td>spálnička LED</td><td name='spalnickaLed' class='switchState'></td><td name='SspalnickaLedTime' class="time"></td></tr>
+		<tr><td>spálnička bez LED</td><td name='spalnickaNoLed' class='switchState'></td><td name='SspalnickaNoLedTime' class="time"></td></tr>
+		<tr><td>spálňa posteľ</td><td name='spalnaPostel' class='switchState'></td><td name='SspalnaPostelTime' class="time"></td></tr>
+		<tr><td>záchod</td><td name='zachod' class='switchState'></td><td name='SzachodTime' class="time"></td></tr>
+		<tr><td>zrkadlo</td><td name='zrkadlo' class='switchState'></td><td name='SzrkadloTime' class="time"></td></tr>
+
+	    </table>
+    </div>
+
+</div>
+
+<script src="./dashboardMobile.js"></script>
+
+
+</body>
+</html>

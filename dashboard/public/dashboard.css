@@ -1,0 +1,25 @@
+label.time
+{
+    font-size: 12px;
+    padding-left: 5px;
+}
+
+td.time
+{
+    font-size: 12px;
+    vertical-align: bottom;
+    padding-left: 5px;
+    
+}
+
+td.temperature
+{
+    font-weight: bold;
+    padding-left: 10px;
+}
+
+td.switchState
+{
+    font-weight: bold;
+    padding-left: 10px;
+}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>My Appartment Thermostat</title>
+	<link rel="stylesheet" type="text/css" href="appartment.css">
+<script>
+var lastRequiredValue = 0.0;
+var sliderTimeout;
+var domain = 'http://my.domain:1234';
+
+function httpGetAsync(theUrl, callback)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous
+    xmlHttp.send(null);
+}
+
+function renderTemperature() {
+	  httpGetAsync(domain+'/temperatures/obyvacka7', function(responseText) {
+		  document.getElementById("CurrentTemperatureLabel").innerHTML = JSON.parse(responseText)["value"] + ' &deg;C';
+	  });
+}
+
+function renderRequiredTemperature() {
+	httpGetAsync(domain+'/requiredTemperatures/obyvacka7', function(responseText) {
+		value = JSON.parse(responseText)["value"];
+		document.getElementById("RequiredTemperatureLabel").innerHTML = value + ' &deg;C';
+		document.getElementById("RequiredTemperatureSlider").value = value;
+	});
+
+}
+
+function onRequiredTemperatureChange(newValue) {
+	  lastRequiredValue = newValue;
+	  document.getElementById("RequiredTemperatureLabel").className = "requiredTemperatureChangingLabel";
+	  document.getElementById('RequiredTemperatureLabel').innerHTML = newValue + ' &deg;C';
+		clearTimeout(sliderTimeout);
+		sliderTimeout = setTimeout(function() {
+			console.log("sending request> " + lastRequiredValue);
+			httpGetAsync(domain+'/requiredTemperatures/obyvacka7/' + lastRequiredValue, function(reponseText){
+				document.getElementById("RequiredTemperatureLabel").className = "requiredTemperatureLabel";
+			})
+		},1000);
+}
+</script>
+</head>
+
+<body>
+Current Temperature: <span id="CurrentTemperatureLabel" class="currentTemperatureLabel"></span></br>
+<p>
+<label for="RequiredTemperatureSlider">Required Temperature: </label>
+<output for="RequiredTemperatureSlider" id="RequiredTemperatureLabel" class="requiredTemperatureLabel"></output>
+</br>
+<input type="range" min="18.0" max="23.0" value="21.2" id="RequiredTemperatureSlider"
+	step="0.1" oninput="onRequiredTemperatureChange(value)" class="requiredTemperatureSlider">
+</p>
+<script>
+	renderTemperature();
+	renderRequiredTemperature();
+</script>
+</body>
+</html>

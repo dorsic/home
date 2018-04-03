@@ -1,0 +1,16 @@
+{
+  "name": "dashboard",
+  "version": "1.0.0",
+  "description": "Monitor and control my Home",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "express": "latest",
+    "jade": "latest",
+    "jquery": "latest",
+    "request": "latest",
+    "serialport": "latest",
+    "socket.io": "latest",
+    "elasticsearch": "latest"
+  },
+  "author": "mdorsic"
+}
