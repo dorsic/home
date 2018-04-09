@@ -203,9 +203,10 @@ def execute():
 		print("Checking GIS WMS")
 		r = requests.get("https://ismcs.cdb.sk/portal/services/EsriProxyService/proxy.ashx?https://kataster.skgeodesy.sk/eskn/services/NR/kn_wms_orto/MapServer/WmsServer?SERVICE=WMS&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=TRUE&STYLES=&VERSION=1.3.0&LAYERS=0%2C1%2C2%2C3%2C5%2C6%2C7%2C8%2C9%2C10&WIDTH=1209&HEIGHT=429&CRS=EPSG%3A25834&BBOX=342957.8094572855%2C5411395.600499534%2C344557.2189061044%2C5411963.132884598")
 		if (r.status_code) != 200:
-			 sendNotification(MT_ISMCS_DOWN, "WMS on Portal IS MCS returns HTTP code " + str(r.status_code) + ".", \
-                                "WMS IS MCS Non-responding", IPHONE7, 132)
-
+			r = requests.get("https://kataster.skgeodesy.sk/eskn/services/NR/kn_wms_orto/MapServer/WmsServer?SERVICE=WMS&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=TRUE&STYLES=&VERSION=1.3.0&LAYERS=0%2C1%2C2%2C3%2C5%2C6%2C7%2C8%2C9%2C10&WIDTH=1209&HEIGHT=429&CRS=EPSG%3A25834&BBOX=342957.8094572855%2C5411395.600499534%2C344557.2189061044%2C5411963.132884598")
+			if (r.status_code) == 200:
+				 sendNotification(MT_ISMCS_DOWN, "WMS on Portal IS MCS returns HTTP code " + str(r.status_code) + ".", \
+	                                "WMS IS MCS Non-responding", IPHONE7, 132)
 	except:
 		print ("Exception portal ismcs")
 
